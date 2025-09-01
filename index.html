@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Summary & Word Frequency</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f2f2f2;
+    }
+
+    textarea, #summary {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      margin-top: 10px;
+      box-sizing: border-box;
+    }
+
+    #summary {
+      background-color: #e6f7ff;
+      min-height: 80px;
+      margin-bottom: 30px;
+    }
+
+    canvas {
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Live Text Summary & Word Frequency Chart</h2>
+
+  <label for="inputText">Enter or Paste Text:</label>
+  <textarea id="inputText" rows="10" placeholder="Start typing or paste content here..."></textarea>
+
+  <label for="summary">Live Summary:</label>
+  <div id="summary">Summary will appear here...</div>
+
+  <label>Most Frequent Words:</label>
+  <canvas id="wordChart" width="800" height="400"></canvas>
+
+  <script>
+    const inputText = document.getElementById('inputText');
+    const summaryDiv = document.getElementById('summary');
+    const ctx = document.getElementById('wordChart').getContext('2d');
+
+    
+    let wordChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Word Frequency',
+          data: [],
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            ticks: {
+              autoSkip: false,
+              maxRotation: 90,
+              minRotation: 45
+            }
+          },
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    function summarizeText(text) {
+      const sentences = text.split('.').map(s => s.trim()).filter(s => s.length > 0);
+      return sentences.slice(0, 2).join('. ') + (sentences.length > 2 ? '...' : '.');
+    }
+
+    function getWordFrequencies(text) {
+      const words = text.toLowerCase().match(/\b\w+\b/g);
+      const freqMap = {};
+
+      if (!words) return freqMap;
+
+      for (let word of words) {
+        if (word.length <= 2) continue; 
+        freqMap[word] = (freqMap[word] || 0) + 1;
+      }
+
+      return freqMap;
+    }
+
+    function updateChart(frequencies) {
+      const sortedWords = Object.entries(frequencies)
+        .sort((a, b) => b[1] - a[1]) 
+        .slice(0, 10); 
+
+      const labels = sortedWords.map(entry => entry[0]);
+      const data = sortedWords.map(entry => entry[1]);
+
+      wordChart.data.labels = labels;
+      wordChart.data.datasets[0].data = data;
+      wordChart.update();
+    }
+
+    inputText.addEventListener('input', () => {
+      const text = inputText.value;
+
+      
+      summaryDiv.textContent = summarizeText(text);
+
+      
+      const frequencies = getWordFrequencies(text);
+      updateChart(frequencies);
+    });
+  </script>
+</body>
+</html>
