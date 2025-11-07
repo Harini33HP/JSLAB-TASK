@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Callback Functions & Scopes</title>
+</head>
+<body>
+  <script>
+
+    console.log("=== Task 3: Callback Functions & Scopes ===");
+
+  
+    function processData(data, callback) {
+      console.log("Processing data:", data);
+  
+      setTimeout(() => {
+        let result = data.toUpperCase();
+        callback(result); 
+      }, 1000);
+    }
+
+   
+    function displayResult(result) {
+      console.log("Callback executed → Processed result:", result);
+    }
+
+   
+    processData("hello world", displayResult);
+
+
+  
+
+    function downloadFile(fileName, callback) {
+      console.log(`Starting download for ${fileName}...`);
+      setTimeout(() => {
+        console.log(`${fileName} downloaded successfully.`);
+        callback(fileName);
+      }, 1500);
+    }
+
+    function showDownloadMessage(file) {
+      console.log(`Callback: File "${file}" is ready to use!`);
+    }
+
+  
+    downloadFile("example.pdf", showDownloadMessage);
+
+
+   
+
+    console.log("\n=== Scope Demonstrations ===");
+
+   
+    var globalVar = "I am global";
+
+    function scopeDemo() {
+      
+      let localVar = "I am local";
+      console.log("Inside function:");
+      console.log("Accessing globalVar:", globalVar);
+      console.log("Accessing localVar:", localVar);
+
+      if (true) {
+        var functionScoped = "Declared with var (function-scoped)";
+        let blockScoped = "Declared with let (block-scoped)";
+        const constScoped = "Declared with const (block-scoped)";
+        console.log("Inside block:");
+        console.log(functionScoped);
+        console.log(blockScoped);
+        console.log(constScoped);
+      }
+
+      console.log("\nOutside block but inside function:");
+      console.log(functionScoped);
+    }
+
+    scopeDemo();
+
+    console.log("\nOutside function:");
+    console.log(globalVar);
+
+
+    // ------------------------------------------
+    console.log("\n=== Task Complete ===");
+  </script>
+</body>
+</html>

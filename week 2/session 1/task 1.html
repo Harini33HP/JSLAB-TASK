@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Defining and Calling Functions</title>
+</head>
+<body>
+  <script>
+  
+    function greet(name) {
+      console.log("Hello, " + name + "! Welcome to JavaScript functions.");
+    }
+
+   
+    greet("Kaviya");
+    greet("Rahul");
+
+    function addNumbers(a, b) {
+      let sum = a + b;
+      console.log("Sum of " + a + " and " + b + " is: " + sum);
+    }
+
+    addNumbers(5, 10);
+    addNumbers(15, 25);
+
+    
+    function multiplyAll(...numbers) {
+      let product = 1;
+      for (let num of numbers) {
+        product *= num;
+      }
+      console.log("Product of all numbers:", product);
+    }
+
+    multiplyAll(2, 3);
+    multiplyAll(2, 3, 4);
+    multiplyAll(1, 5, 10, 2);
+
+ 
+    function showArguments() {
+      console.log("Arguments received:");
+      for (let i = 0; i < arguments.length; i++) {
+        console.log("Argument " + (i + 1) + ": " + arguments[i]);
+      }
+    }
+
+    showArguments("JavaScript", 2025, true);
+  </script>
+</body>
+</html>

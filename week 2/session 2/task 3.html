@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Array Iteration and Loops</title>
+</head>
+<body>
+  <script>
+
+    console.log("=== Task 3: Array Iteration and Loops ===");
+
+  
+    const numbers = [2, 4, 6, 8, 10];
+
+ 
+    console.log("\n--- Using forEach() ---");
+    numbers.forEach((num, index) => {
+      console.log(`Index ${index}: Value = ${num}`);
+    });
+
+    
+    console.log("\n--- Using map() to create a new array (square numbers) ---");
+    const squares = numbers.map(num => num * num);
+    console.log("Original array:", numbers);
+    console.log("Squared array:", squares);
+
+    console.log("\n--- Using for-in (loops over indexes) ---");
+    for (let index in numbers) {
+      console.log(`Index ${index}: Value = ${numbers[index]}`);
+    }
+
+   
+    console.log("\n--- Using for-of (loops over values) ---");
+    for (let value of numbers) {
+      console.log(`Value = ${value}`);
+    }
+
+    console.log("\n=== Comparison Summary ===");
+    console.log(`
+forEach(): Iterates over each element; cannot break or return a new array.
+map(): Creates and returns a new transformed array.
+for-in: Loops over INDEXES (use carefully with arrays).
+for-of: Loops over VALUES directly; simpler for reading values.
+    `);
+
+    console.log("\n=== Task Complete ===");
+
+  </script>
+</body>
+</html>
