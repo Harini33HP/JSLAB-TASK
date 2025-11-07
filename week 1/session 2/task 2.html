@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loop Control Practice</title>
+</head>
+<body>
+  <h2>Loop Control Practice</h2>
+  <p>Click a button to run each loop example:</p>
+
+  <button onclick="whileLoop()">While Loop (1 to 10)</button>
+  <button onclick="doWhileLoop()">Do-While Loop (Password)</button>
+  <button onclick="forLoop()">For Loop (Sum of N Numbers)</button>
+  <button onclick="nestedForLoop()">Nested For Loop (Multiplication Table)</button>
+
+  <script>
+    function whileLoop() {
+      console.clear();
+      let i = 1;
+      while (i <= 10) {
+        console.log(i);
+        i++;
+      }
+      alert("Check console for output (1 to 10)");
+    }
+
+    function doWhileLoop() {
+      console.clear();
+      let password;
+      const correctPassword = "1234";
+      do {
+        password = prompt("Enter the password:");
+      } while (password !== correctPassword);
+      alert("✅ Access Granted!");
+    }
+
+    function forLoop() {
+      console.clear();
+      let N = parseInt(prompt("Enter a number:"));
+      let sum = 0;
+      for (let i = 1; i <= N; i++) {
+        sum += i;
+      }
+      console.log("Sum of first " + N + " natural numbers is " + sum);
+      alert("Check console for the result!");
+    }
+
+    function nestedForLoop() {
+      console.clear();
+      for (let i = 1; i <= 10; i++) {
+        console.log("Multiplication Table of " + i);
+        for (let j = 1; j <= 10; j++) {
+          console.log(i + " x " + j + " = " + (i * j));
+        }
+        console.log("----------------------");
+      }
+      alert("Check console for all multiplication tables (1–10)");
+    }
+  </script>
+</body>
+</html>
